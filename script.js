@@ -5,25 +5,29 @@ let imageURL =
 
 const imageEl = document.getElementById("my-gif");
 
+const buttonEl = document.getElementById("new-gif");
+
 const displayImage = () => {
   imageEl.src = imageURL;
 };
 
+buttonEl.addEventListener("click", () => {
+  console.log("you clicked the button!");
+  const requestOptions = {
+    method: "GET",
+    redirect: "follow",
+  };
 
-const requestOptions = {
-  method: "GET",
-  redirect: "follow",
-};
-
-fetch(
-  "http://api.giphy.com/v1/gifs/random?api_key=0VeHhpnQTWuUFaK58DmOErmtss9ZL5XR",
-  requestOptions
-)
-  .then((response) => response.json())
-  .then((result) => {
-    console.log(result);
-    console.log(result.data.images.original.url);
-    imageURL = result.data.images.original.url;
-    displayImage();
-  })
-  .catch((error) => console.log("error", error));
+  fetch(
+    "http://api.giphy.com/v1/gifs/random?api_key=0VeHhpnQTWuUFaK58DmOErmtss9ZL5XR",
+    requestOptions
+  )
+    .then((response) => response.json())
+    .then((result) => {
+      console.log(result);
+      console.log(result.data.images.original.url);
+      imageURL = result.data.images.original.url;
+      displayImage();
+    })
+    .catch((error) => console.log("error", error));
+});
